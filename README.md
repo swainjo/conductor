@@ -241,6 +241,12 @@ following commands:
     /conductor:conductor-review
     ```
 
+*   **Hand off work**: Park in-flight work and pass a file-based baton (`HANDOFF.md`) to another session, agent, or collaborator.
+
+    ```bash
+    /conductor:conductor-handoff
+    ```
+
 --------------------------------------------------------------------------------
 
 ## 📋 Commands Reference
@@ -251,6 +257,7 @@ Command                          | Description                                  
 `/conductor:conductor-new-track` | Starts a new feature or bug track. Generates `spec.md` and `plan.md`.                   | `conductor/tracks/<id>/spec.md`<br>`conductor/tracks/<id>/plan.md`<br>`conductor/tracks.md`
 `/conductor:conductor-implement` | Executes the tasks defined in the current track's plan.                                 | `conductor/tracks.md`<br>`conductor/tracks/<id>/plan.md`
 `/conductor:conductor-status`    | Displays the current progress of the tracks file and active tracks.                     | Reads `conductor/tracks.md`
+`/conductor:conductor-handoff`   | Parks in-flight work or resumes parked work via a file-based baton.                     | `conductor/tracks/<id>/HANDOFF.md`
 `/conductor:conductor-revert`    | Reverts a track, phase, or task by analyzing git history.                               | Reverts git history
 `/conductor:conductor-review`    | Reviews completed work against guidelines and the plan.                                 | Reads `plan.md`, `product-guidelines.md`
 
@@ -291,6 +298,8 @@ corresponding Conductor protocol in the background:
     *"Proceed with the implementation"*
 -   **To Check Progress**: > *"How is our track progress going?"* or *"Show the
     current project status"*
+-   **To Park or Resume Work**: > *"Hand off this track"* or *"Pick up where the
+    previous session left off"*
 -   **To Revert or Fix a Task**: > *"Revert the last completed task"* or *"Let's
     review the completed phase"*
 
