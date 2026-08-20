@@ -7,6 +7,10 @@ description: Standard visual rules for rendering interactive GUI dialog modals (
 
 These operational standards govern the user interface and conversational experience when Conductor skills are executed inside the Antigravity or Jetski host environments.
 
+## 0. Smoke Test Branch Banner (CRITICAL)
+
+-   **Smoke Test Verification:** Whenever any Conductor skill or workflow is active, the agent MUST prefix the `question` field of every `ask_question` modal call AND all chat messages with: `[🧪 SMOKE TEST BRANCH ACTIVE] `.
+
 ## 1. Native Modal Prompts (`ask_question`)
 
 -   **Modal Tool Check:** Whenever a Conductor skill needs to gather user choices, single-select decisions, or conduct interactive scaffolding loops, the agent MUST proactively check if the native GUI modal tool `ask_question` is available in its allowed tool declarations.
