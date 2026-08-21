@@ -114,6 +114,8 @@ To safely remove Conductor from your environment:
     (Greenfield) and existing (Brownfield) projects.
 -   **Smart revert**: A git-aware revert command that understands logical units
     of work (tracks, phases, tasks) rather than just commit hashes.
+-   **Seamless handoff**: Park in-flight work with a file-based baton
+    (`HANDOFF.md`) to transfer context cleanly between sessions, agents, or humans.
 
 --------------------------------------------------------------------------------
 
