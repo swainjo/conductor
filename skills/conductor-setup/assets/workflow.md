@@ -109,6 +109,12 @@ When an implemented task or phase requires corrections, amendments, or additions
     manually in compatible clients). This safely rolls back associated git
     commits and resets the task state in `plan.md` back to pending `[ ]` to
     allow a clean restart.
+4.  **Session Parking & Handoffs (`conductor-handoff`):** If work must be
+    paused mid-flight, transferred to another session, or parked due to a
+    blocker, instruct the agent to hand off work (e.g., *"park this track"*
+    or *"hand off work"*). This creates a file-based baton (`HANDOFF.md`)
+    inside the track folder so the next session can resume cold without
+    context loss.
 
 ### Phase Completion Verification and Checkpointing Protocol
 
