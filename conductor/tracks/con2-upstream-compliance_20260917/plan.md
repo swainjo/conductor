@@ -9,31 +9,31 @@
   - [x] Record the result in the CON-2 milestone comment (signed / needs signing)
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
-## Phase 2: README Cursor install [checkpoint: 987bf2e]
+## Phase 2: README Cursor install [checkpoint: e9f4b43]
 
-- [x] Task: Add Cursor install section to README `987bf2e`
+- [x] Task: Add Cursor install section to README `e9f4b43`
   - [x] Draft a Cursor section parallel to Antigravity and Claude Code
   - [x] Keep Linear MCP notes; do not claim Cursor is only for Linear
   - [x] Confirm `VERSION` remains `0.3.0`
   - [x] Commit on a branch created from `6dbf804` (not fork `main`)
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
-## Phase 3: Clean upstream branch [checkpoint: 987bf2e]
+## Phase 3: Clean upstream branch [checkpoint: e9f4b43]
 
-- [x] Task: Cut PR branch from `6dbf804` `987bf2e`
+- [x] Task: Cut PR branch from `6dbf804` `e9f4b43`
   - [x] `git fetch upstream && git checkout -b pr/con-2-linear-first 6dbf804`
   - [x] Cherry-pick or recommit only the README change onto that branch
   - [x] `git diff --name-only upstream/main...HEAD` must not list `conductor/` or root `scripts/linear_*.py`
-- [x] Task: Re-run Linear CLI tests (existing suite; no new product code) `987bf2e`
+- [x] Task: Re-run Linear CLI tests (existing suite; no new product code) `e9f4b43`
   - [x] `uv run --with pytest pytest skills/conductor-setup/assets/linear/tests/`
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 4: Open upstream PR
 
-- [~] Task: Open a new PR to `gemini-cli-extensions/conductor`
-  - [ ] Title: `CON-2: Finish Linear-first pre-submission compliance`
-  - [ ] Do not revive #185; do not use `swainjo:main` as the head
-  - [ ] Test plan: CLI pytest, file-based default without `linear.md`, Linear opt-in smoke (create/link track, handoff, no auto-Done)
+- [x] Task: Open a new PR to `gemini-cli-extensions/conductor` `e9f4b43`
+  - [x] Title: `CON-2: Finish Linear-first pre-submission compliance`
+  - [x] Do not revive #185; do not use `swainjo:main` as the head
+  - [x] Test plan: CLI pytest, file-based default without `linear.md`, Linear opt-in smoke (create/link track, handoff, no auto-Done)
 - [ ] Task: Confirm CI
   - [ ] `check-changes` green
   - [ ] `cla/google` green
