@@ -2,16 +2,16 @@
 
 # Plan: Finish pre-submission compliance for Linear-first upstream PR
 
-## Phase 1: CLA
+## Phase 1: CLA [checkpoint: 111d9af]
 
 - [x] Task: Confirm Google CLA for GitHub identity `swainjo` `111d9af`
   - [x] Open https://cla.developers.google.com/ and confirm a signed agreement
   - [x] Record the result in the CON-2 milestone comment (signed / needs signing)
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 2: README Cursor install
 
-- [ ] Task: Add Cursor install section to README
+- [~] Task: Add Cursor install section to README
   - [ ] Draft a Cursor section parallel to Antigravity and Claude Code
   - [ ] Keep Linear MCP notes; do not claim Cursor is only for Linear
   - [ ] Confirm `VERSION` remains `0.3.0`
