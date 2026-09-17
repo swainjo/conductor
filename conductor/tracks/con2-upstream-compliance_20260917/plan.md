@@ -34,8 +34,8 @@
   - [x] Title: `CON-2: Finish Linear-first pre-submission compliance`
   - [x] Do not revive #185; do not use `swainjo:main` as the head
   - [x] Test plan: CLI pytest, file-based default without `linear.md`, Linear opt-in smoke (create/link track, handoff, no auto-Done)
-- [ ] Task: Confirm CI
-  - [ ] `check-changes` green
+- [ ] Task: Confirm CI — **parked 2026-09-17:** `check-changes` green; `cla/google` failed on [#186](https://github.com/gemini-cli-extensions/conductor/pull/186)
+  - [x] `check-changes` green
   - [ ] `cla/google` green
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
