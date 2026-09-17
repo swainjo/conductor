@@ -4,9 +4,9 @@
 
 ## Phase 1: CLA
 
-- [ ] Task: Confirm Google CLA for GitHub identity `swainjo`
-  - [ ] Open https://cla.developers.google.com/ and confirm a signed agreement
-  - [ ] Record the result in the CON-2 milestone comment (signed / needs signing)
+- [x] Task: Confirm Google CLA for GitHub identity `swainjo`
+  - [x] Open https://cla.developers.google.com/ and confirm a signed agreement
+  - [x] Record the result in the CON-2 milestone comment (signed / needs signing)
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 2: README Cursor install
