@@ -4,7 +4,7 @@
 
 ## Phase 1: CLA
 
-- [x] Task: Confirm Google CLA for GitHub identity `swainjo`
+- [x] Task: Confirm Google CLA for GitHub identity `swainjo` `111d9af`
   - [x] Open https://cla.developers.google.com/ and confirm a signed agreement
   - [x] Record the result in the CON-2 milestone comment (signed / needs signing)
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
