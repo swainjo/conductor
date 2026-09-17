@@ -11,21 +11,21 @@
 
 ## Phase 2: README Cursor install
 
-- [~] Task: Add Cursor install section to README
-  - [ ] Draft a Cursor section parallel to Antigravity and Claude Code
-  - [ ] Keep Linear MCP notes; do not claim Cursor is only for Linear
-  - [ ] Confirm `VERSION` remains `0.3.0`
-  - [ ] Commit on a branch created from `6dbf804` (not fork `main`)
+- [x] Task: Add Cursor install section to README `987bf2e`
+  - [x] Draft a Cursor section parallel to Antigravity and Claude Code
+  - [x] Keep Linear MCP notes; do not claim Cursor is only for Linear
+  - [x] Confirm `VERSION` remains `0.3.0`
+  - [x] Commit on a branch created from `6dbf804` (not fork `main`)
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 3: Clean upstream branch
 
-- [ ] Task: Cut PR branch from `6dbf804`
-  - [ ] `git fetch upstream && git checkout -b pr/con-2-linear-first 6dbf804`
-  - [ ] Cherry-pick or recommit only the README change onto that branch
-  - [ ] `git diff --name-only upstream/main...HEAD` must not list `conductor/` or root `scripts/linear_*.py`
-- [ ] Task: Re-run Linear CLI tests (existing suite; no new product code)
-  - [ ] `uv run --with pytest pytest skills/conductor-setup/assets/linear/tests/`
+- [x] Task: Cut PR branch from `6dbf804` `987bf2e`
+  - [x] `git fetch upstream && git checkout -b pr/con-2-linear-first 6dbf804`
+  - [x] Cherry-pick or recommit only the README change onto that branch
+  - [x] `git diff --name-only upstream/main...HEAD` must not list `conductor/` or root `scripts/linear_*.py`
+- [x] Task: Re-run Linear CLI tests (existing suite; no new product code) `987bf2e`
+  - [x] `uv run --with pytest pytest skills/conductor-setup/assets/linear/tests/`
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 4: Open upstream PR
