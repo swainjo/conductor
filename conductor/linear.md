@@ -42,6 +42,7 @@ Map the **dominant changed path** to a Surface label.
 |---------------|-----------|
 | SDD skills | `skills/conductor-*/` |
 | Linear skills | `skills/linear-*/` |
+| GitHub skills | `skills/github-*/` |
 | Rules | `rules/` |
 | Plugin packaging | `plugin.json`, `.claude-plugin/` |
 
