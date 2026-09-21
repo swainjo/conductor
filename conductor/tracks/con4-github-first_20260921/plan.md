@@ -2,7 +2,7 @@
 
 # Plan: GitHub-first spec management
 
-## Phase 1: Tracker detection contract and GitHub template
+## Phase 1: Tracker detection contract and GitHub template [checkpoint: 99862a8]
 
 - [x] Task: Write failing tests that setup resume does not require `github.md` or `linear.md` `99862a8`
   - [x] Assert `determine_resumption` required chain is unchanged `99862a8`
@@ -12,7 +12,7 @@
   - [x] Transport ladder documented in the template
 - [x] Task: Write a failing test that the template contains the required placeholders; then make it pass `99862a8`
 - [x] Task: Add Surface **GitHub skills** (`skills/github-*/`) to this fork’s `conductor/linear.md` taxonomy (for CON-4 labeling) `99862a8`
-- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `4ee554f`
 
 ## Phase 2: `github-issues` skill and new-track pointer tracks
 
