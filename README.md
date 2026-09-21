@@ -152,6 +152,8 @@ To safely remove Conductor from your environment:
 -   **Optional Linear-first**: When a project has `conductor/linear.md`, tracks
     use a Linear issue as the spec (pointer metadata + `plan.md`). File-based
     `spec.md` / `tracks.md` remains the default when that file is absent.
+-   **Seamless handoff**: Park in-flight work with a file-based baton
+    (`HANDOFF.md`) to transfer context cleanly between sessions, agents, or humans.
 
 --------------------------------------------------------------------------------
 
@@ -290,6 +292,12 @@ following commands:
     /conductor:conductor-review
     ```
 
+*   **Hand off work**: Park in-flight work and pass a file-based baton (`HANDOFF.md`) to another session, agent, or collaborator.
+
+    ```bash
+    /conductor:conductor-handoff
+    ```
+
 --------------------------------------------------------------------------------
 
 ## 📋 Commands Reference
@@ -300,6 +308,7 @@ Command                          | Description                                  
 `/conductor:conductor-new-track` | Starts a new feature or bug track. File-based: `spec.md` + `plan.md`. Linear-first: issue as spec + pointer track. | File-based: `spec.md`, `plan.md`, `tracks.md`. Linear-first: Linear issue, pointer `metadata.json`, `plan.md`
 `/conductor:conductor-implement` | Executes the tasks defined in the current track's plan.                                 | `plan.md` (and `tracks.md` when file-based; Linear status when Linear-first)
 `/conductor:conductor-status`    | Displays the current progress of tracks.                                                | Reads `tracks.md` and/or `tracks/*/metadata.json` + Linear status
+`/conductor:conductor-handoff`   | Parks in-flight work or resumes parked work via a file-based baton.                     | `conductor/tracks/<id>/HANDOFF.md`
 `/conductor:conductor-revert`    | Reverts a track, phase, or task by analyzing git history.                               | Reverts git history (optional Linear comment; no auto-cancel)
 `/conductor:conductor-review`    | Reviews completed work against guidelines and the plan (or Linear AC).                  | Reads `plan.md`, styleguides; Linear-first also runs label review
 
@@ -374,6 +383,8 @@ corresponding Conductor protocol in the background:
     *"Proceed with the implementation"*
 -   **To Check Progress**: > *"How is our track progress going?"* or *"Show the
     current project status"*
+-   **To Park or Resume Work**: > *"Hand off this track"* or *"Pick up where the
+    previous session left off"*
 -   **To Revert or Fix a Task**: > *"Revert the last completed task"* or *"Let's
     review the completed phase"*
 
