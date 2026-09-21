@@ -38,28 +38,28 @@
 - [x] Task: Update setup `index.md` handshake example and setup `workflow.md` asset handoff routing `d8846f4`
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `419c186`
 
-## Phase 4: Conductor lifecycle skills
+## Phase 4: Conductor lifecycle skills [checkpoint: 3c2e24c]
 
 - [x] Task: `conductor-implement` — GitHub-first: fetch issue AC, no `spec.md`, status via Open/Closed + optional labels `3c2e24c`
 - [x] Task: `conductor-status` — discover tracks from pointer metadata; lifecycle = GitHub issue state `3c2e24c`
 - [x] Task: `conductor-revert` — git/plan revert unchanged; optional comment on `#N`; do not auto-close `3c2e24c`
 - [x] Task: `conductor-review` — delegate close-out to `github-review` when GitHub-first is on `3c2e24c`
 - [x] Task: `conductor-handoff` — route GitHub-linked work to `github-handoff` `3c2e24c`
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `2ad59e5`
+
+## Phase 5: `github-handoff` [checkpoint: 396c685]
+
+- [x] Task: Add `skills/github-handoff/SKILL.md` and `reference.md` `396c685`
+  - [x] Baton = child issue `Handoff: #N — …`, labels Handoff + Chore + parent Surface
+  - [x] Close only the baton; re-read parent after close
+  - [x] Cross-link with `conductor-handoff` and `github-issues`
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `396c685`
+
+## Phase 6: Review and labels [checkpoint: ecc8b01]
+
+- [x] Task: Add `skills/github-review/SKILL.md` — review intent is the GitHub issue AC `ecc8b01`
+- [x] Task: Add `skills/github-label-review/SKILL.md` — taxonomy from `github.md` only; confirm before `gh issue edit` `ecc8b01`
 - [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-
-## Phase 5: `github-handoff`
-
-- [ ] Task: Add `skills/github-handoff/SKILL.md` and `reference.md`
-  - [ ] Baton = child issue `Handoff: #N — …`, labels Handoff + Chore + parent Surface
-  - [ ] Close only the baton; re-read parent after close
-  - [ ] Cross-link with `conductor-handoff` and `github-issues`
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-
-## Phase 6: Review and labels
-
-- [ ] Task: Add `skills/github-review/SKILL.md` — review intent is the GitHub issue AC
-- [ ] Task: Add `skills/github-label-review/SKILL.md` — taxonomy from `github.md` only; confirm before `gh issue edit`
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 7: Docs and plugin discoverability
 
