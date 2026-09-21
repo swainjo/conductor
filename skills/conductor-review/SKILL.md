@@ -25,13 +25,22 @@ You are an AI agent acting as a **Principal Software Engineer** and **Code Revie
 
 ---
 
-## Linear-first mode
+## Tracker backend
 
-**Detection:** Linear-first is **on** if and only if `conductor/linear.md` exists.
-When it is on, review intent is the Linear issue's acceptance criteria — follow
-**linear-review** (which sequences **linear-label-review**) after the diff
-analysis in this skill. Do not require `spec.md`. Never set Linear **Done**
-unless the user explicitly instructs it in the current session.
+If both `conductor/linear.md` and `conductor/github.md` exist, **HALT** and
+ask which file to keep.
+
+**Linear-first** (`linear.md` only): review intent is the Linear issue's
+acceptance criteria — follow **linear-review** (which sequences
+**linear-label-review**) after the diff analysis in this skill. Do not require
+`spec.md`. Never set Linear **Done** unless the user explicitly instructs it
+in the current session.
+
+**GitHub-first** (`github.md` only): review intent is the GitHub issue's
+acceptance criteria — follow **github-review** (which sequences
+**github-label-review**) after the diff analysis. Do not require `spec.md`.
+Never **close** the GitHub issue unless the user explicitly instructs it in
+the current session.
 
 ## 1. Handshake & Context Initialization
 
@@ -45,9 +54,9 @@ Before starting the review process, you MUST locate and read the project's found
         -   **If Denied:** HALT and await further instructions.
 
 2.  **Load & Verify Context:** Read `conductor/index.md` and use the provided links to locate the core files:
-    -   **Tracks Registry** (`tracks.md`) — optional when Linear-first is on
-        (`conductor/linear.md` exists); then discover tracks from
-        `conductor/tracks/*/metadata.json`.
+    -   **Tracks Registry** (`tracks.md`) — optional when Linear-first or
+        GitHub-first is on (`conductor/linear.md` or `conductor/github.md`
+        exists); then discover tracks from `conductor/tracks/*/metadata.json`.
     -   **Product Definition** (`product.md`)
     -   **Tech Stack** (`tech-stack.md`)
     -   **Workflow** (`workflow.md`)
@@ -70,6 +79,8 @@ Before starting the review process, you MUST locate and read the project's found
     -   Look for a track marked as `[~]` (In Progress).
     -   **Linear-first:** also consider tracks whose Linear issue is In Progress
         (from `metadata.json` + MCP/CLI).
+    -   **GitHub-first:** also consider tracks whose GitHub issue is Open with
+        an `in-progress` label if defined (from `metadata.json` + `gh`/MCP).
     -   **If one exists:** Ask the user for confirmation using a **Yes/No question** to proceed with reviewing that specific track.
     -   **If no track is in progress, or the user declines:** Ask the user to clarify what they would like to review by asking an **open question**, suggesting options like entering a specific track name or 'current' for uncommitted changes.
 
@@ -106,7 +117,7 @@ Before starting the review process, you MUST locate and read the project's found
 ### 2.3 Analyze and Verify
 **Perform the following checks on the retrieved diff:**
 
-1.  **Intent Verification:** Does the code actually implement what the `plan.md` (and `spec.md` if available, or the Linear issue acceptance criteria when Linear-first is on) asked for?
+1.  **Intent Verification:** Does the code actually implement what the `plan.md` (and `spec.md` if available, the Linear issue acceptance criteria when Linear-first is on, or the GitHub issue body when GitHub-first is on) asked for?
 2.  **Style Compliance:**
     -   Does it follow `product-guidelines.md`?
     -   Does it strictly follow `conductor/code_styleguides/*.md`?
@@ -122,6 +133,10 @@ Before starting the review process, you MUST locate and read the project's found
     -   **Linear-first:** after the diff review, run **linear-review** close-out
         (finish comment, labels via **linear-label-review**, In Review when
         complete). Do not mark the Linear issue Done unless the user explicitly
+        instructs it.
+    -   **GitHub-first:** after the diff review, run **github-review** close-out
+        (finish comment, labels via **github-label-review**, `in-review` when
+        complete). Do not close the GitHub issue unless the user explicitly
         instructs it.
 
 ### 2.4 Output Findings

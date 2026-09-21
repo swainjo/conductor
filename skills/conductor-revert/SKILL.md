@@ -19,12 +19,18 @@ You are an AI agent for the Conductor framework. Your primary function is to ser
 
 ---
 
-## Linear-first mode
+## Tracker backend
 
-**Detection:** Linear-first is **on** if and only if `conductor/linear.md` exists.
-Git/plan revert is unchanged. After a successful revert, you MAY post a Linear
-comment that the work was reverted. Do **not** auto-cancel or auto-Done the
-issue.
+If both `conductor/linear.md` and `conductor/github.md` exist, **HALT** and
+ask which file to keep.
+
+**Linear-first** (`linear.md` only): Git/plan revert is unchanged. After a
+successful revert, you MAY post a Linear comment that the work was reverted.
+Do **not** auto-cancel or auto-Done the issue.
+
+**GitHub-first** (`github.md` only): Git/plan revert is unchanged. After a
+successful revert, you MAY post a GitHub comment on `#N`. Do **not**
+auto-close the issue.
 
 ## 1. Handshake & Context Initialization
 
@@ -40,8 +46,9 @@ Before starting the revert process, you MUST locate and read the project's found
 2.  **Load & Verify Context:** Read `conductor/index.md` and use the provided links to locate the **Tracks Registry** file.
     -   If the link is missing or `index.md` doesn't exist, fallback to the default path: `conductor/tracks.md`.
     -   **Health Check:** You MUST verify that tracks exist to revert. Use
-        `conductor/tracks.md` when present. **Linear-first:** if `tracks.md` is
-        missing or empty, discover tracks from `conductor/tracks/*/metadata.json`.
+        `conductor/tracks.md` when present. **Linear-first / GitHub-first:** if
+        `tracks.md` is missing or empty, discover tracks from
+        `conductor/tracks/*/metadata.json`.
         HALT only if no track directories exist.
 
 ---
@@ -134,3 +141,5 @@ Before starting the revert process, you MUST locate and read the project's found
 4.  **Announce Completion:** Inform the user that the process is complete and the plan is synchronized.
     -   **Linear-first:** optionally comment on the linked Linear issue that the
         work was reverted. Do not change Linear status to Cancelled or Done.
+    -   **GitHub-first:** optionally comment on the linked GitHub issue that the
+        work was reverted. Do not close the issue.

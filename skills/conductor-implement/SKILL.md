@@ -19,12 +19,20 @@ You are the **Conductor Implementer**. Your goal is to execute the tasks defined
 
 ---
 
-## Linear-first mode
+## Tracker backend
 
-**Detection:** Linear-first is **on** if and only if `conductor/linear.md` exists.
-When it is on, follow **linear-issues**: the Linear issue is the spec, lifecycle
-status lives on the issue, and `plan.md` markers are local execution state only.
-When it is off, follow the file-based path (`spec.md`, `tracks.md`) in this skill.
+If both `conductor/linear.md` and `conductor/github.md` exist, **HALT** and
+ask which file to keep.
+
+**Linear-first** (`linear.md` only): follow **linear-issues**. The Linear issue
+is the spec; lifecycle status lives on the issue; `plan.md` markers are local
+execution state only.
+
+**GitHub-first** (`github.md` only): follow **github-issues**. The GitHub issue
+is the spec; lifecycle is Open/Closed plus optional labels from `github.md`;
+`plan.md` markers are local execution state only.
+
+Otherwise follow the file-based path (`spec.md`, `tracks.md`).
 
 ## 1. Handshake & Context Initialization
 
@@ -54,8 +62,9 @@ Adhere to this sequence to identify and select the track to be implemented.
 2.  **Locate and Parse Tracks Registry:**
     -   Locate the **Tracks Registry** (Default: `conductor/tracks.md`).
     -   Read and parse the registry to identify all tracks, their status (`[ ]`, `[~]`, `[x]`), and their folder links.
-    -   **Linear-first:** If `conductor/linear.md` exists, also discover tracks
-        from `conductor/tracks/*/metadata.json` (and `conductor/archive/` if
+    -   **Linear-first / GitHub-first:** If `conductor/linear.md` or
+        `conductor/github.md` exists, also discover tracks from
+        `conductor/tracks/*/metadata.json` (and `conductor/archive/` if
         present). Do not HALT solely because `tracks.md` is missing or frozen.
     -   **CRITICAL:** If no tracks are found from either source, announce that no tracks are available to implement and HALT.
 
@@ -80,6 +89,7 @@ Adhere to this sequence to execute the selected track.
 2.  **Update Status to 'In Progress':**
     -   Before beginning any work, update the status of the selected track to `[~]` in the **Tracks Registry** file **if that file is in use**.
     -   **Linear-first:** set the linked Linear issue to **In Progress** (MCP or CLI) once per session. Do not require a `tracks.md` status flip.
+    -   **GitHub-first:** keep the GitHub issue **Open**; apply `in-progress` if `github.md` defines that label. Do not require a `tracks.md` status flip.
     -   If you updated `tracks.md`, stage the file and commit: `chore(conductor): Mark track '<track_description>' as in progress`.
 
 3.  **Load Track Context:**
@@ -90,6 +100,12 @@ Adhere to this sequence to execute the selected track.
         the user to paste acceptance criteria. If the issue has a parent, run
         the epic track check (see **linear-issues**). Execute `plan.md` against
         the issue. Comment on Linear only at phase/milestone boundaries.
+    -   **GitHub-first:** there is no `spec.md`. Fetch the GitHub issue from
+        `metadata.json` (`github` / `github_url`) via MCP, else `gh issue view`,
+        else ask the user to paste acceptance criteria. If the issue has a
+        parent, run the epic track check (see **github-issues**). Execute
+        `plan.md` against the issue. Comment on GitHub only at phase/milestone
+        boundaries.
     -   Resolve and read the **Workflow** document (Check `conductor/index.md` for the link, or use default path).
     -   If you fail to read any of these files, halt and inform the user.
     -   Check for installed skills in `.agents/skills/` and `~/.agents/extensions/conductor/skills/`.
@@ -105,6 +121,10 @@ Adhere to this sequence to execute the selected track.
     -   **Linear-first:** follow **linear-issues** §3 — finish comment; **In Review**
         only when work is committed, pushed, tests green, and the PR is open if
         requested; **Done** only on explicit user instruction in this session.
+    -   **GitHub-first:** follow **github-issues** §3 — finish comment; `in-review`
+        label only when work is committed, pushed, tests green, and the PR is
+        open if requested; **Closed** only on explicit user instruction; no
+        `Closes #N` until then.
     -   If you updated `tracks.md`, stage it and commit: `chore(conductor): Mark track '<track_description>' as complete`.
     -   Announce that the track is fully complete.
 
@@ -114,12 +134,13 @@ Adhere to this sequence to execute the selected track.
 
 Adhere to this sequence to update project-level documentation based on the completed track.
 
-1.  **Execution Trigger:** This protocol MUST only be executed when a track has reached a completed status (`[x]`) in the tracks file, **or** (Linear-first) when `plan.md` tasks are complete and Linear close-out in §3.5 has been followed.
+1.  **Execution Trigger:** This protocol MUST only be executed when a track has reached a completed status (`[x]`) in the tracks file, **or** (Linear-first / GitHub-first) when `plan.md` tasks are complete and tracker close-out in §3.5 has been followed.
 
 2.  **Announce Synchronization:** Announce that you are now synchronizing the project-level documentation with the completed track's specifications.
 
 3.  **Load Track Specification:** Read the track's **Specification** (`spec.md`,
-    or the Linear issue description when Linear-first is on).
+    the Linear issue description when Linear-first is on, or the GitHub issue
+    body when GitHub-first is on).
 
 4.  **Load Project Documents:**
     -   Locate and read:
