@@ -10,8 +10,9 @@
 
 - Git + GitHub (`origin`: `swainjo/conductor`, `upstream`:
   `gemini-cli-extensions/conductor`)
-- pytest run with `uv` for Linear CLI unit tests (no network)
+- pytest run with `uv` for Linear CLI and GitHub template unit tests (no network)
 - Linear MCP when authenticated; `LINEAR_API_KEY` for CLI fallback
+- GitHub MCP when authenticated; `gh` as the CLI fallback (no bundled token)
 
 ## Hosts
 

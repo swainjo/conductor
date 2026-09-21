@@ -11,7 +11,8 @@ before writing it. Do not skip protocol steps.
 - Always offer a custom/Other option on choices
 - Prefer (Recommended) with a short italic reason when a default is clear
 - Treat `conductor/` as source of truth; Linear issue as spec when
-  `linear.md` exists
+  `linear.md` exists; GitHub issue as spec when `github.md` exists (halt if
+  both files are present)
 
 ## Prose
 

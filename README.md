@@ -89,9 +89,10 @@ your Claude Code session:
 
 ### 3. Cursor
 
-Cursor is a first-class install target. Linear MCP is separate (see
-[Optional Linear-first](#-optional-linear-first)); installing the plugin does
-not authenticate Linear, and authenticating Linear does not install Conductor.
+Cursor is a first-class install target. Linear MCP and GitHub MCP are separate
+(see [Optional Linear-first](#-optional-linear-first) and
+[Optional GitHub-first](#-optional-github-first)); installing the plugin does
+not authenticate a tracker, and authenticating a tracker does not install Conductor.
 
 #### End-User / Developer Installation (Recommended)
 
@@ -149,12 +150,14 @@ To safely remove Conductor from your environment:
     (Greenfield) and existing (Brownfield) projects.
 -   **Smart revert**: A git-aware revert command that understands logical units
     of work (tracks, phases, tasks) rather than just commit hashes.
--   **Optional Linear-first**: When a project has `conductor/linear.md`, tracks
-    use a Linear issue as the spec (pointer metadata + `plan.md`). File-based
-    `spec.md` / `tracks.md` remains the default when that file is absent.
+-   **Optional Linear-first / GitHub-first**: When a project has
+    `conductor/linear.md` or `conductor/github.md` (not both), tracks use that
+    tracker’s issue as the spec (pointer metadata + `plan.md`). File-based
+    `spec.md` / `tracks.md` remains the default when neither file exists.
 -   **Seamless handoff**: Park in-flight work with a baton. File-based tracks use
     `HANDOFF.md` (`conductor-handoff`); Linear-linked tracks use a Handoff
-    sub-issue (`linear-handoff`) when `conductor/linear.md` exists.
+    sub-issue (`linear-handoff`); GitHub-linked tracks use a Handoff child
+    issue (`github-handoff`).
 
 --------------------------------------------------------------------------------
 
@@ -219,6 +222,7 @@ components or features by you or anyone on your team.
 -   `conductor/code_styleguides/`
 -   `conductor/tracks.md`
 -   `conductor/linear.md` (only if you opt in to Linear-first)
+-   `conductor/github.md` (only if you opt in to GitHub-first)
 -   `scripts/linear_cli.py` and `scripts/linear_create_issue.py` (copied when Linear is enabled)
 
 ```bash
@@ -246,6 +250,14 @@ unit of work. Conductor helps you generate two critical artifacts:
 
 -   Linear issue (created or linked) — this is the spec
 -   `conductor/tracks/<track_id>/metadata.json` (pointer: `track_id`, `linear`, `linear_url`)
+-   `conductor/tracks/<track_id>/plan.md`
+-   `conductor/tracks/<track_id>/index.md`
+-   No `spec.md`, no `tracks.md` entry
+
+**Generated Artifacts (GitHub-first, when `conductor/github.md` exists):**
+
+-   GitHub issue (created or linked) — this is the spec
+-   `conductor/tracks/<track_id>/metadata.json` (pointer: `track_id`, `github`, `github_url`)
 -   `conductor/tracks/<track_id>/plan.md`
 -   `conductor/tracks/<track_id>/index.md`
 -   No `spec.md`, no `tracks.md` entry
@@ -301,6 +313,7 @@ following commands:
     ```bash
     /conductor:conductor-handoff
     # or, for Linear-linked work: follow linear-handoff (Linear MCP / issue baton)
+    # or, for GitHub-linked work: follow github-handoff (gh / child-issue baton)
     ```
 
 --------------------------------------------------------------------------------
@@ -309,13 +322,13 @@ following commands:
 
 Command                          | Description                                                                             | Generated Artifacts
 :------------------------------- | :-------------------------------------------------------------------------------------- | :------------------
-`/conductor:conductor-setup`     | Scaffolds the project and sets up the Conductor environment. Run this once per project. | `conductor/product.md`<br>`conductor/product-guidelines.md`<br>`conductor/tech-stack.md`<br>`conductor/workflow.md`<br>`conductor/tracks.md`<br>optional `conductor/linear.md` + CLI scripts
-`/conductor:conductor-new-track` | Starts a new feature or bug track. File-based: `spec.md` + `plan.md`. Linear-first: issue as spec + pointer track. | File-based: `spec.md`, `plan.md`, `tracks.md`. Linear-first: Linear issue, pointer `metadata.json`, `plan.md`
-`/conductor:conductor-implement` | Executes the tasks defined in the current track's plan.                                 | `plan.md` (and `tracks.md` when file-based; Linear status when Linear-first)
-`/conductor:conductor-status`    | Displays the current progress of tracks.                                                | Reads `tracks.md` and/or `tracks/*/metadata.json` + Linear status
-`/conductor:conductor-handoff`   | Parks/resumes file-based handoffs (`HANDOFF.md`). Defers to `linear-handoff` when Linear-linked. | `conductor/tracks/<id>/HANDOFF.md`
-`/conductor:conductor-revert`    | Reverts a track, phase, or task by analyzing git history.                               | Reverts git history (optional Linear comment; no auto-cancel)
-`/conductor:conductor-review`    | Reviews completed work against guidelines and the plan (or Linear AC).                  | Reads `plan.md`, styleguides; Linear-first also runs label review
+`/conductor:conductor-setup`     | Scaffolds the project and sets up the Conductor environment. Run this once per project. | `conductor/product.md`<br>`conductor/product-guidelines.md`<br>`conductor/tech-stack.md`<br>`conductor/workflow.md`<br>`conductor/tracks.md`<br>optional `conductor/linear.md` + CLI scripts **or** `conductor/github.md`
+`/conductor:conductor-new-track` | Starts a new feature or bug track. File-based: `spec.md` + `plan.md`. Tracker-first: issue as spec + pointer track. | File-based: `spec.md`, `plan.md`, `tracks.md`. Linear-first / GitHub-first: issue, pointer `metadata.json`, `plan.md`
+`/conductor:conductor-implement` | Executes the tasks defined in the current track's plan.                                 | `plan.md` (and `tracks.md` when file-based; issue status when tracker-first)
+`/conductor:conductor-status`    | Displays the current progress of tracks.                                                | Reads `tracks.md` and/or `tracks/*/metadata.json` + issue status
+`/conductor:conductor-handoff`   | Parks/resumes file-based handoffs (`HANDOFF.md`). Defers to `linear-handoff` or `github-handoff` when tracker-linked. | `conductor/tracks/<id>/HANDOFF.md`
+`/conductor:conductor-revert`    | Reverts a track, phase, or task by analyzing git history.                               | Reverts git history (optional issue comment; no auto-close)
+`/conductor:conductor-review`    | Reviews completed work against guidelines and the plan (or issue AC).                   | Reads `plan.md`, styleguides; tracker-first also runs label review
 
 --------------------------------------------------------------------------------
 
@@ -350,6 +363,42 @@ CLI tests (no network):
 
 ```bash
 uv run --with pytest pytest skills/conductor-setup/assets/linear/tests/
+```
+
+--------------------------------------------------------------------------------
+
+## 🔗 Optional GitHub-first
+
+Conductor stays file-based unless the project has `conductor/github.md`.
+Do not also keep `conductor/linear.md` — skills halt and ask which to keep.
+
+During setup, you can **skip** (default), **enable Linear-first**, or
+**enable GitHub-first**. Enabling GitHub writes owner/repo and a label
+taxonomy into `conductor/github.md`. It does **not** copy a custom GraphQL
+client; transport is GitHub MCP → `gh` → ask the user.
+
+When GitHub-first is on:
+
+- New tracks **create or link** a GitHub issue. The issue body is the spec.
+- Track folders hold pointer `metadata.json` + `plan.md` only.
+- Implement/review/status use GitHub acceptance criteria and Open/Closed
+  (plus optional workflow labels from `github.md`).
+- **In-review** only when work is complete; **Closed** only on explicit
+  instruction. Do not put `Closes #N` on a PR until then.
+- Label review reads Class / Surface (and optional Domain / Platform / Quality)
+  from `github.md`, not from a built-in product taxonomy.
+
+Plugin skills `github-issues`, `github-review`, `github-handoff`, and
+`github-label-review` activate only when `github.md` exists. Handoff routing:
+GitHub-linked → `github-handoff`; else → `conductor-handoff`.
+
+GitHub.com is the supported baseline (sub-issues via `gh issue create --parent`).
+GHES is best-effort (sub-issues need 3.17+).
+
+Offline tests:
+
+```bash
+uv run --with pytest pytest skills/conductor-setup/tests/ skills/conductor-setup/assets/github/tests/
 ```
 
 --------------------------------------------------------------------------------
@@ -398,8 +447,9 @@ corresponding Conductor protocol in the background:
 
 ## 📂 Repository Structure
 
--   `/skills`: The protocol logic (`SKILL.md`) for each command, including optional `linear-*` skills.
+-   `/skills`: The protocol logic (`SKILL.md`) for each command, including optional `linear-*` and `github-*` skills.
 -   `/skills/conductor-setup/assets/linear`: `linear.md` template and CLI scripts copied into projects that opt in.
+-   `/skills/conductor-setup/assets/github`: `github.md` template copied into projects that opt in to GitHub-first.
 -   `/rules`: Platform-specific operational rules files.
 
 --------------------------------------------------------------------------------

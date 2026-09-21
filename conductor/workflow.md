@@ -112,8 +112,10 @@ When an implemented task or phase requires corrections, amendments, or additions
 4.  **Session Parking & Handoffs:** If work must be paused mid-flight,
     transferred, or parked on a blocker, hand off with routing: Linear-linked
     (`conductor/linear.md` + `metadata.json.linear` / `PREFIX-XXX`) →
-    **linear-handoff**; else → **conductor-handoff** (`HANDOFF.md`). Never mark
-    the track or parent issue Done as a side effect of handoff.
+    **linear-handoff**; GitHub-linked (`conductor/github.md` +
+    `metadata.json.github` / `#N`) → **github-handoff**; if both tracker
+    files exist, halt and ask; else → **conductor-handoff** (`HANDOFF.md`).
+    Never mark the track or parent issue Done as a side effect of handoff.
 
 ### Phase Completion Verification and Checkpointing Protocol
 
@@ -244,19 +246,19 @@ Before marking any task complete, verify:
 
 ```bash
 # No package install required for Markdown skills.
-# Linear CLI tests: uv run --with pytest pytest skills/conductor-setup/assets/linear/tests/
+# Tracker tests: uv run --with pytest pytest skills/conductor-setup/tests/ skills/conductor-setup/assets/github/tests/ skills/conductor-setup/assets/linear/tests/
 ```
 
 ### Daily Development
 
 ```bash
-uv run --with pytest pytest skills/conductor-setup/assets/linear/tests/
+uv run --with pytest pytest skills/conductor-setup/tests/ skills/conductor-setup/assets/github/tests/ skills/conductor-setup/assets/linear/tests/
 ```
 
 ### Before Committing
 
 ```bash
-uv run --with pytest pytest skills/conductor-setup/assets/linear/tests/
+uv run --with pytest pytest skills/conductor-setup/tests/ skills/conductor-setup/assets/github/tests/ skills/conductor-setup/assets/linear/tests/
 ```
 
 ## Testing Requirements
