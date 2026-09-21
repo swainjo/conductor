@@ -21,7 +21,7 @@ branches (`pr/conductor-handoff`, `pr/linear-first`); do not use fork `main`
   - [x] Push fork `main` (`20530cb`)
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
-## Phase 2: Reconcile routing on the fork (Phase B)
+## Phase 2: Reconcile routing on the fork (Phase B) [checkpoint: 86e3b18]
 
 - [x] Task: Confirm routing rule against CON-3
   - [x] Linear path: `conductor/linear.md` and/or `metadata.json.linear` → **linear-handoff**
@@ -42,7 +42,7 @@ branches (`pr/conductor-handoff`, `pr/linear-first`); do not use fork `main`
 - [x] Task: Local smoke on fork
   - [x] Routing tables present in both skills; CON-3 track has `linear` → would select linear-handoff
   - [x] File-based path documented for tracks without `metadata.json.linear`
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 3: Upstream-ready reconcile artifact (optional before PRs)
 
