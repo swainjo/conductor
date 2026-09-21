@@ -18,6 +18,9 @@ define product-specific domains.
 
 **Activate only when** `conductor/linear.md` exists.
 
+If `conductor/github.md` **also** exists, **HALT** and ask which tracker file
+to keep. Do not pick silently.
+
 ## When this runs
 
 - **Automatically:** a step inside **linear-review** — after the diff review.

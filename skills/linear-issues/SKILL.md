@@ -20,6 +20,9 @@ milestones via MCP when authenticated.
 absent, do not follow this skill — Conductor is in file-based SDD
 (`spec.md` / `tracks.md`).
 
+If `conductor/github.md` **also** exists, **HALT** and ask which tracker file
+to keep. Do not pick silently.
+
 **Workspace:** read `conductor/linear.md` in the **project** (not this plugin)
 for team name, team id, and issue prefix. Never hard-code a prefix or workspace.
 

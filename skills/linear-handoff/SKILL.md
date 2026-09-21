@@ -22,6 +22,7 @@ the next agent or person resumes cold — without archaeology.
 
 | Condition | Skill to use |
 |-----------|----------------|
+| Both `linear.md` and `github.md` exist | **HALT** and ask which tracker file to keep |
 | `conductor/linear.md` exists **and** the work is Linear-linked (`metadata.json.linear` and/or an active `PREFIX-XXX` issue) | **This skill** — Handoff sub-issue under the parent |
 | No Linear issue (file-based track only) | **`conductor-handoff`** — `HANDOFF.md` in `conductor/tracks/<id>/`; do not invent a Linear baton |
 

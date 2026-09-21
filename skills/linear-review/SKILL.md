@@ -22,7 +22,8 @@ This skill **frames** the diff against the Linear issue, reviews it, runs
 `linear-label-review`, then maps the results back onto the issue.
 
 If `conductor/linear.md` is absent, do not use this skill; use **conductor-review**
-against `spec.md` / `plan.md`.
+against `spec.md` / `plan.md`. If `conductor/github.md` is also present,
+**HALT** and ask which tracker file to keep.
 
 ## When this runs
 
