@@ -72,10 +72,12 @@
 
 ## Phase 8: CON-4 close-out
 
-- [ ] Task: Post a CON-4 milestone comment (what shipped, how to verify)
+- [x] Task: Post a CON-4 milestone comment (what shipped, how to verify) `16c094a`
 - [ ] Task: Set CON-4 to **In Review** only after commit/push and tests green
 - [ ] Task: Mark **CON-4** Done only on explicit user instruction
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+
+Parked for **manual testing** before push / In Review. Resume: verify GitHub-first locally, then push `main` and continue close-out.
 
 ## Phase: Review Fixes
 
