@@ -21,17 +21,19 @@ You are the **Conductor Planner**. Your goal is to guide the user through defini
     -   Other (User-defined input)
 -   **Sequential Questioning (CRITICAL):** When gathering information or asking the user questions, if a native tool is available to present multiple questions for structured answering (e.g., a modal or form tool), you may use it to group questions. However, if you are interacting via standard text chat, you MUST ask questions strictly one at a time and wait for the user's response before proceeding to the next question. Do NOT output multiple questions in a single chat response.
 
-## Linear-first mode
+## Tracker backend
 
-**Detection:** Linear-first is **on** if and only if `conductor/linear.md` exists.
-Do not infer it from Linear MCP being connected. If the file is absent, follow
-the file-based path in this skill (`spec.md`, `tracks.md`).
+A project enables **at most one** issue-tracker backend.
 
-When Linear-first is on:
+| Condition | Backend |
+|-----------|---------|
+| Both `conductor/linear.md` and `conductor/github.md` exist | **HALT** and ask which file to keep. Do not pick silently. |
+| `conductor/linear.md` only | **Linear-first** — follow **linear-issues**. The Linear issue is the spec. Do **not** write `spec.md`. Do **not** register the track in `tracks.md`. Read prefix, team, and URL from `conductor/linear.md`. |
+| `conductor/github.md` only | **GitHub-first** — follow **github-issues**. The GitHub issue is the spec. Do **not** write `spec.md`. Do **not** register the track in `tracks.md`. Read owner/repo from `conductor/github.md`. |
+| Neither | File-based (`spec.md`, `tracks.md`). |
 
-- Follow **linear-issues**. The Linear issue is the spec.
-- Do **not** write `spec.md`. Do **not** register the track in `tracks.md`.
-- Read prefix, team, and URL pattern from `conductor/linear.md`.
+Do not infer a backend from MCP or `gh` being available. Detection is the
+tracker file only.
 
 ## 1. Handshake & Context Initialization
 
@@ -68,11 +70,18 @@ Adhere to this sequence precisely.
     type (e.g., MVP, Feature, Bug, Chore, Refactor). Ask the user for
     confirmation using a **Yes/No question**.
 
-### 2.1a Linear-first branch
+### 2.1a Tracker-backend branch
 
-If `conductor/linear.md` exists, skip §2.2 (`spec.md`) and follow **§2.2-L**
-instead. Then continue at §2.3 for `plan.md` (the plan is still local). If
-`linear.md` is absent, follow §2.2 as written.
+If both `conductor/linear.md` and `conductor/github.md` exist, **HALT** and
+ask which file to keep.
+
+If `conductor/linear.md` exists, skip §2.2 (`spec.md`) and follow **§2.2-L**.
+Then continue at §2.3 for `plan.md` (the plan is still local).
+
+If `conductor/github.md` exists (and `linear.md` does not), skip §2.2 and
+follow **§2.2-G**. Then continue at §2.3.
+
+If neither tracker file exists, follow §2.2 as written.
 
 ### 2.2 Interactive Specification Generation (`spec.md`)
 
@@ -141,6 +150,43 @@ Use this section **instead of §2.2** when `conductor/linear.md` exists.
 
 5.  **Confirm** the issue is the source of truth. Do not write `spec.md`.
 
+### 2.2-G GitHub specification (GitHub-first only)
+
+Use this section **instead of §2.2** when `conductor/github.md` exists (and
+`linear.md` does not).
+
+1.  **State Your Goal:** Announce that the GitHub issue is the spec. You will
+    gather the same details as a `spec.md`, write them onto the issue
+    body, and keep only a local `plan.md`.
+
+2.  **Create or link:** Ask using a **single-choice question**:
+    - **Create a new GitHub issue (Recommended)** when this work has no ticket yet.
+    - **Link an existing issue** when the user already has `#N` / a URL.
+    - Other (User-defined input)
+
+3.  **If Create:**
+    - Ask whether this is a **top-level issue** or a **sub-issue** (parent `#N`).
+    - Run the **epic track check** if it is a sub-issue: the parent must have an
+      epic track (`metadata.json.github` = parent id) with one plan phase per
+      sub-issue. Create that epic track first if it is missing.
+    - Draft Overview, Functional Requirements, Acceptance Criteria, and Out of
+      Scope using the same questioning rules as §2.2 (one question at a time).
+    - Present the draft; **Approve** or **Revise**.
+    - Create the issue via GitHub MCP, else `gh issue create` (`--parent N` for
+      a sub-issue). Defaults: **open**. Map track type → Class label from
+      `github.md`.
+    - Record `github` id (`owner/repo#N`) and `github_url`.
+
+4.  **If Link:**
+    - Resolve `#N` from the prompt, URL, or user. Fetch the issue (MCP, else
+      `gh issue view`, else paste). Restate title, state, and acceptance
+      criteria.
+    - If the issue has a parent, run the epic track check.
+    - If the body is too thin to implement, ask whether to add acceptance
+      criteria on the issue before planning.
+
+5.  **Confirm** the issue is the source of truth. Do not write `spec.md`.
+
 ### 2.3 Interactive Plan Generation (`plan.md`)
 
 1.  **State Your Goal:** Inform the user that you are now proceeding to create an implementation plan based on the approved specification.
@@ -148,8 +194,9 @@ Use this section **instead of §2.2** when `conductor/linear.md` exists.
 2.  **Strategic Action:** Explain that the `plan.md` is the execution roadmap. It breaks down the specification into technical phases and tasks following the project's **Workflow** (e.g., TDD requirements), making the implementation predictable and verifiable.
 
 3.  **Generate Plan:**
-    *   Read the confirmed specification: `spec.md` when file-based, or the
-        Linear issue description when Linear-first is on.
+    *   Read the confirmed specification: `spec.md` when file-based, the
+        Linear issue description when Linear-first is on, or the GitHub issue
+        body when GitHub-first is on.
     *   Locate and read the **Workflow** document as linked in `conductor/index.md`.
     *   Generate a `plan.md` featuring a hierarchical list of Phases, Tasks, and Sub-tasks.
     *   **CRITICAL:** The plan structure MUST strictly follow the methodology defined in the **Workflow** (e.g., ensuring TDD tasks like "Write Tests" precede "Implementation").
@@ -167,7 +214,9 @@ Use this section **instead of §2.2** when `conductor/linear.md` exists.
 
 1.  **Analyze Needs & Trust Model:**
     -   Read the skill catalog from `assets/catalog.md` (relative to this skill's directory).
-    -   Analyze the confirmed specification (`spec.md` or the Linear issue) and `plan.md` against the `Detection Signals` in the loaded `catalog.md`.
+    -   Analyze the confirmed specification (`spec.md`, the Linear issue, or
+        the GitHub issue) and `plan.md` against the `Detection Signals` in the
+        loaded `catalog.md`.
     -   Identify any relevant skills that are NOT yet installed.
     -   **Trust Assessment:** Note the `Party` status (1p or 3p) for each identified skill.
 
@@ -197,6 +246,9 @@ Use this section **instead of §2.2** when `conductor/linear.md` exists.
 metadata, no `spec.md`, no `tracks.md` entry). Still create the track directory
 and `plan.md`. Then skip to step 7 (commit) / 8 (next steps), posting a
 track-opened comment on the Linear issue.
+
+**If GitHub-first is on**, follow **§2.5-G** the same way, posting the
+track-opened comment on the GitHub issue.
 
 1.  **Strategic Action:** Explain that you are about to "commit the track to history." This involves creating a dedicated workspace for the track, initializing its metadata, and updating the central registry so that your progress is trackable by any tool or collaborator.
 
@@ -254,3 +306,24 @@ Replace §2.5 steps 4–6 when `conductor/linear.md` exists.
     track id, `plan.md` path, and that the issue description is the spec.
 5.  **Commit:** Stage `conductor/` (and copied CLI scripts only if this session
     created them). Message: `chore(conductor): initialize track '<track_id>'`.
+
+### 2.5-G GitHub-first track artifacts
+
+Replace §2.5 steps 4–6 when `conductor/github.md` exists (and `linear.md` does
+not).
+
+1.  **Write pointer artifacts only:**
+    -   `metadata.json`: `{ "track_id", "github", "github_url" }` — no `status`,
+        no spec copy, no `parent_github`.
+    -   `plan.md`: the confirmed plan, with a header linking the GitHub issue.
+    -   `index.md`: one-line pointer to the GitHub issue URL and `plan.md`.
+    -   Do **not** write `spec.md`.
+2.  **Do not** append `conductor/tracks.md`. That registry is file-based /
+    legacy only. Discover GitHub-first tracks from
+    `conductor/tracks/*/metadata.json`.
+3.  **Handshake:** Ensure `conductor/index.md` links the Tracks Directory
+    (`./tracks/`). A Tracks Registry link is optional when GitHub-first is on.
+4.  **Track-opened comment:** Post a short comment on the GitHub issue with the
+    track id, `plan.md` path, and that the issue body is the spec.
+5.  **Commit:** Stage `conductor/`. Message:
+    `chore(conductor): initialize track '<track_id>'`.
