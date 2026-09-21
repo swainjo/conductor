@@ -29,23 +29,23 @@
   - [x] Track-opened comment on the GitHub issue
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `a07c5e8`
 
-## Phase 3: Setup opt-in
+## Phase 3: Setup opt-in [checkpoint: d8846f4]
 
 - [x] Task: Change `conductor-setup` §2.7 to a three-way tracker choice: Skip / Linear-first / GitHub-first `d8846f4`
   - [x] Skip remains recommended default
   - [x] Enabling GitHub copies the template to `conductor/github.md` and links it from `index.md`
   - [x] Do not copy `github-*` skills into `.cursor` / `.claude` / `.agents`
 - [x] Task: Update setup `index.md` handshake example and setup `workflow.md` asset handoff routing `d8846f4`
-- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `419c186`
 
 ## Phase 4: Conductor lifecycle skills
 
-- [ ] Task: `conductor-implement` — GitHub-first: fetch issue AC, no `spec.md`, status via Open/Closed + optional labels
-- [ ] Task: `conductor-status` — discover tracks from pointer metadata; lifecycle = GitHub issue state
-- [ ] Task: `conductor-revert` — git/plan revert unchanged; optional comment on `#N`; do not auto-close
-- [ ] Task: `conductor-review` — delegate close-out to `github-review` when GitHub-first is on
-- [ ] Task: `conductor-handoff` — route GitHub-linked work to `github-handoff`
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: `conductor-implement` — GitHub-first: fetch issue AC, no `spec.md`, status via Open/Closed + optional labels `3c2e24c`
+- [x] Task: `conductor-status` — discover tracks from pointer metadata; lifecycle = GitHub issue state `3c2e24c`
+- [x] Task: `conductor-revert` — git/plan revert unchanged; optional comment on `#N`; do not auto-close `3c2e24c`
+- [x] Task: `conductor-review` — delegate close-out to `github-review` when GitHub-first is on `3c2e24c`
+- [x] Task: `conductor-handoff` — route GitHub-linked work to `github-handoff` `3c2e24c`
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 5: `github-handoff`
 
