@@ -44,12 +44,12 @@ branches (`pr/conductor-handoff`, `pr/linear-first`); do not use fork `main`
   - [x] File-based path documented for tracks without `metadata.json.linear`
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
-## Phase 3: Upstream-ready reconcile artifact (optional before PRs)
+## Phase 3: Upstream-ready reconcile artifact (optional before PRs) [checkpoint: 1a96d87]
 
-- [ ] Task: Cut `feat/handoff-reconcile` from `upstream/main` + both clean heads
-  - [ ] Include reconcile skill/doc edits; **exclude** fork `conductor/`
-  - [ ] Push to `origin` as upstream PR head when ready
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Cut `feat/handoff-reconcile` from `upstream/main` + both clean heads
+  - [x] Include reconcile skill/doc edits; **exclude** fork `conductor/`
+  - [x] Push to `origin` as upstream PR head when ready (`1a96d87`)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 4: Linear close-out
 
