@@ -109,6 +109,11 @@ When an implemented task or phase requires corrections, amendments, or additions
     manually in compatible clients). This safely rolls back associated git
     commits and resets the task state in `plan.md` back to pending `[ ]` to
     allow a clean restart.
+4.  **Session Parking & Handoffs:** If work must be paused mid-flight,
+    transferred, or parked on a blocker, hand off with routing: Linear-linked
+    (`conductor/linear.md` + `metadata.json.linear` / `PREFIX-XXX`) →
+    **linear-handoff**; else → **conductor-handoff** (`HANDOFF.md`). Never mark
+    the track or parent issue Done as a side effect of handoff.
 
 ### Phase Completion Verification and Checkpointing Protocol
 

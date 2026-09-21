@@ -7,8 +7,10 @@ description: >
   handoff sub-issue under the in-flight issue (or its epic) and the receiver
   acknowledges → re-reads the parent → verifies state → resumes → closes only
   that handoff sub-issue (never the parent, epic, or other work issues). Use when
-  the user says "hand off", "park this", "pick up where X left off". Activates
-  only when conductor/linear.md exists. Pairs with linear-issues.
+  the user says "hand off", "park this", "pick up where X left off" and
+  conductor/linear.md exists with a Linear-linked track/issue. If there is no
+  Linear issue, use conductor-handoff (HANDOFF.md) instead. Pairs with
+  linear-issues and conductor-handoff.
 ---
 
 # Linear handoff (PREFIX-XXX)
@@ -16,12 +18,19 @@ description: >
 The coordination primitive for parking in-flight work and passing the baton so
 the next agent or person resumes cold — without archaeology.
 
-**Activate only when** `conductor/linear.md` exists. Read prefix and team from
-that file.
+## Routing (read first)
 
-If the work has **no** Linear issue, do not use this skill — park in the track's
-`plan.md` (and a `HANDOFF.md` in the track directory if the project has a
-file-based handoff convention).
+| Condition | Skill to use |
+|-----------|----------------|
+| `conductor/linear.md` exists **and** the work is Linear-linked (`metadata.json.linear` and/or an active `PREFIX-XXX` issue) | **This skill** — Handoff sub-issue under the parent |
+| No Linear issue (file-based track only) | **`conductor-handoff`** — `HANDOFF.md` in `conductor/tracks/<id>/`; do not invent a Linear baton |
+
+**Activate only when** `conductor/linear.md` exists. Read prefix and team from
+that file. If `linear.md` is absent, use **`conductor-handoff`** (or file-based
+Conductor only).
+
+If the work has **no** Linear issue even though `linear.md` exists, do **not**
+improvise a file baton ad hoc — follow **`conductor-handoff`** by name.
 
 ## Three principles (do not violate)
 
@@ -80,7 +89,9 @@ If the work simply *finished*, this is not a handoff — close out with
 3. **Verify state** — check out the branch at the recorded SHA; named tests green.
 4. **Resume** from the handoff's **Resume point**. The parent stays open.
 5. **Close only the handoff baton** — mark **that** Handoff-labelled sub-issue
-   **Done**. Never mark the parent Done/Cancelled here.
+   **Done**. Never mark the parent Done/Cancelled here. (File-based counterpart:
+   **conductor-handoff** deletes/archives `HANDOFF.md` — same "spend the baton
+   only" rule.)
 6. **Re-read the parent after closing the baton — always.** If Linear
    auto-completed it, `save_issue` it back to **In Progress** (or **Blocked**) and
    say so.
@@ -121,13 +132,31 @@ If the work simply *finished*, this is not a handoff — close out with
 *Receiver: acknowledge → re-read parent → verify branch@SHA → resume → close **this handoff sub-issue only**. Never Done/Cancelled the parent.*
 ```
 
+## How this differs from conductor-handoff
+
+| | **linear-handoff** (this skill) | **conductor-handoff** |
+|--|----------------------------------|------------------------|
+| Baton | Linear sub-issue labelled Handoff | `HANDOFF.md` in the track folder |
+| Spend baton | Mark **only** that sub-issue Done | Delete or archive the file |
+| Spec | Parent Linear issue | `spec.md` |
+| Extra risk | Parent may auto-complete when baton closes — re-read parent | None of that Linear behaviour |
+
 ## What this skill does not do
 
 - It does **not** close the parent, epic, or siblings — only the baton.
 - It does **not** review the code (that's **linear-review**).
 - It does **not** replace `plan.md`.
+- It does **not** handle file-only tracks — use **conductor-handoff**.
 - If Linear MCP is unavailable, post the filled template as a comment on the
   parent and create the sub-issue when MCP returns. Still do **not** close the
   parent.
+
+## Pairs with
+
+| When | Skill |
+|------|--------|
+| Linear issue lifecycle / track pointer | **linear-issues** |
+| File-based handoff (no Linear issue) | **conductor-handoff** |
+| Diff review after resume | **linear-review** |
 
 Templates: [reference.md](reference.md).

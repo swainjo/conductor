@@ -152,8 +152,9 @@ To safely remove Conductor from your environment:
 -   **Optional Linear-first**: When a project has `conductor/linear.md`, tracks
     use a Linear issue as the spec (pointer metadata + `plan.md`). File-based
     `spec.md` / `tracks.md` remains the default when that file is absent.
--   **Seamless handoff**: Park in-flight work with a file-based baton
-    (`HANDOFF.md`) to transfer context cleanly between sessions, agents, or humans.
+-   **Seamless handoff**: Park in-flight work with a baton. File-based tracks use
+    `HANDOFF.md` (`conductor-handoff`); Linear-linked tracks use a Handoff
+    sub-issue (`linear-handoff`) when `conductor/linear.md` exists.
 
 --------------------------------------------------------------------------------
 
@@ -292,10 +293,14 @@ following commands:
     /conductor:conductor-review
     ```
 
-*   **Hand off work**: Park in-flight work and pass a file-based baton (`HANDOFF.md`) to another session, agent, or collaborator.
+*   **Hand off work**: Park in-flight work for another session, agent, or
+    collaborator. **Routing:** if `conductor/linear.md` exists and the track is
+    Linear-linked (`metadata.json.linear` / `PREFIX-XXX`) → **`linear-handoff`**
+    (Handoff sub-issue). Otherwise → **`conductor-handoff`** (`HANDOFF.md`).
 
     ```bash
     /conductor:conductor-handoff
+    # or, for Linear-linked work: follow linear-handoff (Linear MCP / issue baton)
     ```
 
 --------------------------------------------------------------------------------
@@ -308,7 +313,7 @@ Command                          | Description                                  
 `/conductor:conductor-new-track` | Starts a new feature or bug track. File-based: `spec.md` + `plan.md`. Linear-first: issue as spec + pointer track. | File-based: `spec.md`, `plan.md`, `tracks.md`. Linear-first: Linear issue, pointer `metadata.json`, `plan.md`
 `/conductor:conductor-implement` | Executes the tasks defined in the current track's plan.                                 | `plan.md` (and `tracks.md` when file-based; Linear status when Linear-first)
 `/conductor:conductor-status`    | Displays the current progress of tracks.                                                | Reads `tracks.md` and/or `tracks/*/metadata.json` + Linear status
-`/conductor:conductor-handoff`   | Parks in-flight work or resumes parked work via a file-based baton.                     | `conductor/tracks/<id>/HANDOFF.md`
+`/conductor:conductor-handoff`   | Parks/resumes file-based handoffs (`HANDOFF.md`). Defers to `linear-handoff` when Linear-linked. | `conductor/tracks/<id>/HANDOFF.md`
 `/conductor:conductor-revert`    | Reverts a track, phase, or task by analyzing git history.                               | Reverts git history (optional Linear comment; no auto-cancel)
 `/conductor:conductor-review`    | Reviews completed work against guidelines and the plan (or Linear AC).                  | Reads `plan.md`, styleguides; Linear-first also runs label review
 
@@ -338,7 +343,8 @@ When Linear-first is on:
   from `linear.md`, not from a built-in product taxonomy.
 
 Plugin skills `linear-issues`, `linear-review`, `linear-handoff`, and
-`linear-label-review` activate only when `linear.md` exists.
+`linear-label-review` activate only when `linear.md` exists. Handoff routing:
+Linear-linked → `linear-handoff`; else → `conductor-handoff`.
 
 CLI tests (no network):
 

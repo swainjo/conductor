@@ -1,13 +1,27 @@
 ---
 name: conductor-handoff
-description: Parks in-flight work and creates or processes a file-based baton (HANDOFF.md) within the active track directory for clean context handoffs between sessions, agents, or humans.
+description: >
+  Parks in-flight work via a file-based baton (HANDOFF.md) in the active track
+  directory. Use when the user says "hand off", "park this", or "pick up handoff"
+  and the work is NOT Linear-linked. If conductor/linear.md exists and the track
+  has metadata.json.linear (or an active PREFIX-XXX issue), use linear-handoff
+  instead. Pairs with linear-handoff and conductor-implement.
 metadata:
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Conductor Handoff Skill
 
 You are the **Conductor Handoff Coordinator**. Your goal is to park in-flight work and pass the baton so that the next agent, session, or human can resume cold without loss of context or duplicate execution. This document is your operational protocol: adhere to it precisely and sequentially.
+
+## Routing (read first)
+
+| Condition | Skill to use |
+|-----------|----------------|
+| `conductor/linear.md` exists **and** the work is Linear-linked (`metadata.json.linear` and/or an active `PREFIX-XXX` issue) | **`linear-handoff`** — stop this skill and follow that one |
+| Otherwise (file-based track / no Linear issue) | **This skill** — `HANDOFF.md` in `conductor/tracks/<id>/` |
+
+Do **not** create `HANDOFF.md` for Linear-linked work when `linear.md` is present.
 
 ## Operational Standards
 
@@ -16,7 +30,7 @@ You are the **Conductor Handoff Coordinator**. Your goal is to park in-flight wo
 -   **Path Integrity:** Always use relative paths starting from the project root (e.g., `conductor/tracks/<id>/HANDOFF.md`).
 -   **Strict Track Containment (CRITICAL):** `HANDOFF.md` must **NEVER** be created at the repository root or outside an active `conductor/tracks/<id>/` directory. A handoff without an active track is invalid.
 -   **Baton, Not Diary:** `HANDOFF.md` is a discrete, point-in-time transfer delta. It captures the exact resume point, uncommitted/pushed state, and open decisions. It does NOT restate the entire spec or become a rolling log.
--   **Authority Separation:** The track's `spec.md` (scope and acceptance criteria) and `plan.md` (progress markers, recorded task SHAs, and git notes) remain authoritative. The baton only points to them.
+-   **Authority Separation:** The track's `spec.md` (scope and acceptance criteria) and `plan.md` (progress markers, recorded task SHAs, and git notes) remain authoritative. The baton only points to them. When Linear-first is on for *other* tracks, the Linear issue is the spec — but Linear-linked handoffs belong to **linear-handoff**, not this file.
 -   **Status Invariance (CRITICAL):** Creating or processing a handoff does **NOT** mark a track as `done` or `dropped`. Allowed status transitions during handoff are strictly `in_progress` (clean continuation) or `blocked` (parking on a blocker or dependency). Closing/completing a track is a separate finish action that only occurs after all work is fully verified.
 -   **Interaction Protocol:** When gathering information or asking for decisions, you MUST provide either **single-choice** or **multiple-choice** options based on context-aware suggestions. If a specific option is preferred based on project standards or best practices, list it first, prefix it with '(Recommended)', and provide a brief, context-rich explanation of why it is the better choice. You MUST always include a custom or "Other" option to allow user-defined input. Avoid asking raw, open-ended questions without suggestions.
 -   **Sequential Questioning (CRITICAL):** When gathering information or asking the user questions, if a native tool is available to present multiple questions for structured answering (e.g., a modal or form tool), you may use it to group questions. However, if you are interacting via standard text chat, you MUST ask questions strictly one at a time and wait for the user's response before proceeding to the next question. Do NOT output multiple questions in a single chat response.
@@ -35,6 +49,8 @@ Before starting the handoff process, you MUST locate and read the project's foun
         -   **If Denied:** HALT and await further instructions.
 
 2.  **Load & Verify Context:** Read `conductor/index.md` and use the provided links to locate core files (`product.md`, `tech-stack.md`, `workflow.md`, `tracks.md`).
+
+3.  **Apply routing:** If `conductor/linear.md` exists, resolve the active track's `metadata.json`. If `"linear"` is set (or the user named a `PREFIX-XXX` / Linear URL for this work), **HALT this skill** and follow **`linear-handoff`** instead.
 
 ---
 
@@ -57,7 +73,7 @@ Determine whether the user wants to **Give** (Park / Create a Handoff) or **Rece
 Follow this sequence to safely park work:
 
 ### 3.1 Identify Active Track
-1.  Read `conductor/tracks.md` and check active / in-progress tracks (`[~]`).
+1.  Read `conductor/tracks.md` and check active / in-progress tracks (`[~]`). For Linear-first projects without `tracks.md`, discover tracks from `conductor/tracks/*/metadata.json` (only those **without** a `linear` field belong to this skill).
 2.  Confirm the target track directory under `conductor/tracks/<id>/`.
 3.  **Validation:** If no track is currently active, ask the user which track they are parking. Do NOT proceed without a valid track directory.
 
@@ -73,7 +89,7 @@ Follow this sequence to safely park work:
 ### 3.3 Synchronize Authoritative Artifacts
 Before writing the baton, update the primary source-of-truth files:
 1.  **Update `plan.md`:** Update task markers (`[x]` for completed, `[~]` for in-progress, `[ ]` for pending) and record commit SHAs for completed tasks.
-2.  **Update Track Metadata:** Ensure `conductor/tracks/<id>/metadata.json` status is set to `"in_progress"` or `"blocked"`. **NEVER** set status to `"done"` or `"completed"` during a handoff.
+2.  **Update Track Metadata:** When the track uses file-based metadata with a `status` field, set it to `"in_progress"` or `"blocked"`. **NEVER** set status to `"done"` or `"completed"` during a handoff. Do not invent a `status` field on Linear-first pointer metadata.
 
 ### 3.4 Generate `conductor/tracks/<id>/HANDOFF.md`
 Write `conductor/tracks/<id>/HANDOFF.md` using the exact baton template below:
@@ -145,7 +161,7 @@ Follow this sequence when picking up a parked track:
 
 ### 4.5 Spend the Baton
 1.  Once pickup is verified and work is actively resuming, delete `conductor/tracks/<id>/HANDOFF.md` (or rename to `conductor/tracks/<id>/HANDOFF-<YYYYMMDD>.md` if historical archival is explicitly requested).
-2.  **CRITICAL:** The track remains active (`in_progress`); only the baton file is removed.
+2.  **CRITICAL:** The track remains active (`in_progress`); only the baton file is removed. This is the file-based counterpart of closing only a Linear Handoff sub-issue — never finish the track as part of handoff.
 
 ---
 
@@ -155,10 +171,23 @@ Follow this sequence when picking up a parked track:
 - **No Track Closure:** Never mark a track completed/done as a side effect of creating or consuming a handoff.
 - **No Code Review:** Handoff records operational delta; it does not replace `conductor-review`.
 - **No Plan Duplication:** Do not copy task tables or specifications into `HANDOFF.md`; reference `plan.md` and `spec.md`.
+- **No Linear Baton:** Do not invent a Linear handoff sub-issue from this skill — that is **linear-handoff**.
+
+---
+
+## How this differs from linear-handoff
+
+| | **conductor-handoff** (this skill) | **linear-handoff** |
+|--|-------------------------------------|--------------------|
+| Baton | `HANDOFF.md` in the track folder | Linear sub-issue labelled Handoff |
+| Spend baton | Delete or archive the file | Mark **only** that sub-issue Done |
+| Spec | `spec.md` | Parent Linear issue |
+| After spend | Track stays in progress | Re-read parent (Linear may auto-complete) |
 
 ---
 
 ## Pairs With
+- `linear-handoff`: Use instead when `conductor/linear.md` exists and the track/issue is Linear-linked.
 - `conductor-implement`: Executes tasks identified at the handoff resume point.
 - `conductor-new-track`: Defines the specifications and plans that the handoff baton references.
 - `conductor-status`: Reflects track status (`in_progress` / `blocked`).

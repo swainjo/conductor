@@ -2,7 +2,8 @@
 
 Skills in `linear-issues`, `linear-review`, `linear-handoff`, and
 `linear-label-review` read this file for team identity and label taxonomy.
-Change it here, not in each skill.
+Change it here, not in each skill. When this file exists, park Linear-linked
+work with **linear-handoff**; file-only tracks use **conductor-handoff**.
 
 Linear-first is **on** when this file exists. Do not commit API keys.
 

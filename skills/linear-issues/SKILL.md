@@ -246,7 +246,8 @@ on, refuse that part** and follow this contract instead.
 | When | Also use |
 |------|----------|
 | Reviewing a PREFIX-XXX change | **linear-review** |
-| Park in-flight work | **linear-handoff** |
+| Park in-flight work (Linear-linked) | **linear-handoff** |
+| Park in-flight work (file-based / no Linear issue) | **conductor-handoff** |
 | Conductor implement / new track | this §6 |
 | Commit message only | user rule |
 
