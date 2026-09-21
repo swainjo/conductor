@@ -76,3 +76,7 @@
 - [ ] Task: Set CON-4 to **In Review** only after commit/push and tests green
 - [ ] Task: Mark **CON-4** Done only on explicit user instruction
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+
+## Phase: Review Fixes
+
+- [x] Task: Apply review suggestions `33da8da`
