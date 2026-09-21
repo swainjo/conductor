@@ -114,7 +114,10 @@ When an implemented task or phase requires corrections, amendments, or additions
     agent to hand off work (e.g., *"park this track"* or *"hand off work"*).
     **Routing:** if `conductor/linear.md` exists and the track is Linear-linked
     (`metadata.json.linear` / `PREFIX-XXX`), use **`linear-handoff`** (Handoff
-    sub-issue). Otherwise use **`conductor-handoff`** (file baton `HANDOFF.md`
+    sub-issue). If `conductor/github.md` exists and the track is GitHub-linked
+    (`metadata.json.github` / `#N`), use **`github-handoff`** (Handoff child
+    issue). If both tracker files exist, halt and ask which to keep. Otherwise
+    use **`conductor-handoff`** (file baton `HANDOFF.md`
     inside the track folder). Never finish the track or parent issue as a side
     effect of handoff.
 
