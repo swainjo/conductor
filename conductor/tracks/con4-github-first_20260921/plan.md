@@ -14,7 +14,7 @@
 - [x] Task: Add Surface **GitHub skills** (`skills/github-*/`) to this fork’s `conductor/linear.md` taxonomy (for CON-4 labeling) `99862a8`
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `4ee554f`
 
-## Phase 2: `github-issues` skill and new-track pointer tracks
+## Phase 2: `github-issues` skill and new-track pointer tracks [checkpoint: 249c5e0]
 
 - [x] Task: Add `skills/github-issues/SKILL.md` and `reference.md` adapted from `linear-issues` `249c5e0`
   - [x] Activate only when `conductor/github.md` exists
@@ -27,16 +27,16 @@
 - [x] Task: Add GitHub-first branch to `conductor-new-track` (`§2.2-G` / `§2.5-G`) `249c5e0`
   - [x] Create or link `#N`; no `spec.md`; no `tracks.md` row
   - [x] Track-opened comment on the GitHub issue
-- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `a07c5e8`
 
 ## Phase 3: Setup opt-in
 
-- [ ] Task: Change `conductor-setup` §2.7 to a three-way tracker choice: Skip / Linear-first / GitHub-first
-  - [ ] Skip remains recommended default
-  - [ ] Enabling GitHub copies the template to `conductor/github.md` and links it from `index.md`
-  - [ ] Do not copy `github-*` skills into `.cursor` / `.claude` / `.agents`
-- [ ] Task: Update setup `index.md` handshake example and setup `workflow.md` asset handoff routing
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Change `conductor-setup` §2.7 to a three-way tracker choice: Skip / Linear-first / GitHub-first `d8846f4`
+  - [x] Skip remains recommended default
+  - [x] Enabling GitHub copies the template to `conductor/github.md` and links it from `index.md`
+  - [x] Do not copy `github-*` skills into `.cursor` / `.claude` / `.agents`
+- [x] Task: Update setup `index.md` handshake example and setup `workflow.md` asset handoff routing `d8846f4`
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 4: Conductor lifecycle skills
 
