@@ -53,6 +53,9 @@ branches (`pr/conductor-handoff`, `pr/linear-first`); do not use fork `main`
 
 ## Phase 4: Linear close-out
 
+- [~] Task: Local testing / hold fire on upstream PRs (parked — see Linear handoff baton)
+  - [ ] Dogfood routing on fork `main` until satisfied
+  - [ ] Then resume from handoff: open upstream PR(s) and/or finish close-out
 - [ ] Task: Tick CON-3 acceptance criteria that Phase A completed; leave reconcile AC open until Phase 2 done
 - [ ] Task: Post CON-3 finish comment when reconcile is verified
 - [ ] Task: Set CON-3 to In Review only after commit/push (and upstream PR if requested)
