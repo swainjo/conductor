@@ -4,15 +4,15 @@
 
 ## Phase 1: Tracker detection contract and GitHub template
 
-- [ ] Task: Write failing tests that setup resume does not require `github.md` or `linear.md`
-  - [ ] Assert `determine_resumption` required chain is unchanged
-- [ ] Task: Confirm `resume.py` already treats tracker files as optional (no required-chain change unless a test fails)
-- [ ] Task: Add `skills/conductor-setup/assets/github/github.md` template
-  - [ ] Placeholders for owner, repo, issue URL, Class / Surface / optional Domain Platform Quality, optional status labels
-  - [ ] Transport ladder documented in the template
-- [ ] Task: Write a failing test that the template contains the required placeholders; then make it pass
-- [ ] Task: Add Surface **GitHub skills** (`skills/github-*/`) to this fork’s `conductor/linear.md` taxonomy (for CON-4 labeling)
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Write failing tests that setup resume does not require `github.md` or `linear.md` `99862a8`
+  - [x] Assert `determine_resumption` required chain is unchanged `99862a8`
+- [x] Task: Confirm `resume.py` already treats tracker files as optional (no required-chain change unless a test fails) `99862a8`
+- [x] Task: Add `skills/conductor-setup/assets/github/github.md` template `99862a8`
+  - [x] Placeholders for owner, repo, issue URL, Class / Surface / optional Domain Platform Quality, optional status labels
+  - [x] Transport ladder documented in the template
+- [x] Task: Write a failing test that the template contains the required placeholders; then make it pass `99862a8`
+- [x] Task: Add Surface **GitHub skills** (`skills/github-*/`) to this fork’s `conductor/linear.md` taxonomy (for CON-4 labeling) `99862a8`
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 2: `github-issues` skill and new-track pointer tracks
 
