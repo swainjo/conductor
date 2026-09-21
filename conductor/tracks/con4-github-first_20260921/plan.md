@@ -59,16 +59,16 @@
 
 - [x] Task: Add `skills/github-review/SKILL.md` — review intent is the GitHub issue AC `ecc8b01`
 - [x] Task: Add `skills/github-label-review/SKILL.md` — taxonomy from `github.md` only; confirm before `gh issue edit` `ecc8b01`
-- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) `7e25e71`
 
 ## Phase 7: Docs and plugin discoverability
 
-- [ ] Task: README — GitHub-first section beside Linear-first; command table; handoff routing
-- [ ] Task: `conductor/product.md` and `product-guidelines.md` — file | Linear | GitHub backends
-- [ ] Task: `conductor/tech-stack.md` — `gh` / GitHub MCP on the transport ladder
-- [ ] Task: `conductor/workflow.md` — handoff routing includes GitHub-linked tracks
-- [ ] Task: `plugin.json` / `.cursor-plugin/plugin.json` — confirm `skills/` glob picks up `github-*` with no extra wiring
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: README — GitHub-first section beside Linear-first; command table; handoff routing `42f1959`
+- [x] Task: `conductor/product.md` and `product-guidelines.md` — file | Linear | GitHub backends `42f1959`
+- [x] Task: `conductor/tech-stack.md` — `gh` / GitHub MCP on the transport ladder `42f1959`
+- [x] Task: `conductor/workflow.md` — handoff routing includes GitHub-linked tracks `42f1959`
+- [x] Task: `plugin.json` / `.cursor-plugin/plugin.json` — confirm `skills/` glob picks up `github-*` with no extra wiring `42f1959`
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 8: CON-4 close-out
 
