@@ -16,18 +16,18 @@
 
 ## Phase 2: `github-issues` skill and new-track pointer tracks
 
-- [ ] Task: Add `skills/github-issues/SKILL.md` and `reference.md` adapted from `linear-issues`
-  - [ ] Activate only when `conductor/github.md` exists
-  - [ ] Dual-file halt if `linear.md` is also present
-  - [ ] Issue body is the spec; pointer `metadata.json` (`track_id`, `github`, `github_url`)
-  - [ ] Resolve `#N` from prompt, metadata, `{n}-{slug}` branch, or `(#N)` commits
-  - [ ] Transport: GitHub MCP → `gh` → human
-  - [ ] Epics = parent issue + sub-issues; epic track check
-  - [ ] No `Closes #N` until explicit close instruction; never close without it
-- [ ] Task: Add GitHub-first branch to `conductor-new-track` (`§2.2-G` / `§2.5-G`)
-  - [ ] Create or link `#N`; no `spec.md`; no `tracks.md` row
-  - [ ] Track-opened comment on the GitHub issue
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Add `skills/github-issues/SKILL.md` and `reference.md` adapted from `linear-issues` `249c5e0`
+  - [x] Activate only when `conductor/github.md` exists
+  - [x] Dual-file halt if `linear.md` is also present
+  - [x] Issue body is the spec; pointer `metadata.json` (`track_id`, `github`, `github_url`)
+  - [x] Resolve `#N` from prompt, metadata, `{n}-{slug}` branch, or `(#N)` commits
+  - [x] Transport: GitHub MCP → `gh` → human
+  - [x] Epics = parent issue + sub-issues; epic track check
+  - [x] No `Closes #N` until explicit close instruction; never close without it
+- [x] Task: Add GitHub-first branch to `conductor-new-track` (`§2.2-G` / `§2.5-G`) `249c5e0`
+  - [x] Create or link `#N`; no `spec.md`; no `tracks.md` row
+  - [x] Track-opened comment on the GitHub issue
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 3: Setup opt-in
 
