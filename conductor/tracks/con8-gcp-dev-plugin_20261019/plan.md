@@ -20,4 +20,4 @@ Sources: air_engine `main` — `gcp-skill-pack/skills/*.md` (flat, no frontmatte
 ## Phase 3: Verify
 
 - [x] Task: `claude plugin validate` on the marketplace and both plugins (passes; pre-existing marketplace description warning)
-- [ ] Task: (after push) Fresh session with this worktree as marketplace lists `gcp-dev:*` and the two new skills
+- [x] Task: (after push) Fresh session with this worktree as marketplace lists `gcp-dev:*` and the two new skills (all six `gcp-dev:*` in slash menu; local-scope install)
