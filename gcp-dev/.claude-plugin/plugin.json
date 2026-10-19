@@ -1,0 +1,11 @@
+{
+  "name": "gcp-dev",
+  "version": "0.1.0",
+  "description": "Dev and GCP skills: Postgres, changed-files lint, Compose logs, Cloud Logging, idempotent GCP deploys, cost review.",
+  "author": {
+    "name": "John Swain"
+  },
+  "repository": "https://github.com/swainjo/conductor",
+  "license": "Apache-2.0",
+  "keywords": ["gcp", "postgres", "cloud-run", "logging", "cost"]
+}

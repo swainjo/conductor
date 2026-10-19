@@ -8,6 +8,11 @@
       "name": "conductor",
       "source": "./",
       "description": "Conductor is a set of modular AI agent skills for Claude Code that enables Spec-Driven Development."
+    },
+    {
+      "name": "gcp-dev",
+      "source": "./gcp-dev",
+      "description": "Dev and GCP skills: Postgres, changed-files lint, Compose logs, Cloud Logging, idempotent GCP deploys, cost review."
     }
   ]
 }

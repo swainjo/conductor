@@ -1,7 +1,7 @@
 {
   "name": "conductor",
   "displayName": "Conductor",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Spec-Driven Development for AI coding agents: specify, plan, and implement software features.",
   "author": {
     "name": "Gemini CLI Extensions"
