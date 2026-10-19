@@ -11,6 +11,7 @@ This repository is two things at once:
 |-------|-------|-------------|
 | **Plugin product** | `skills/`, `rules/`, `README.md`, `plugin.json` | PRs to **upstream** |
 | **Your SDD workspace** | `conductor/` (this file, `linear.md`, tracks, plans) and root `scripts/linear_*.py` | Commit on **origin** (`swainjo/conductor`) only |
+| **Fork-only plugins** | `gcp-dev/` and its `.claude-plugin/marketplace.json` entry | Commit on **origin** only |
 
 Linear-first is on because `conductor/linear.md` exists. Tracks use the Linear
 issue as the spec. Local track folders are thin pointers (`metadata.json` +
@@ -59,6 +60,7 @@ gh pr create --repo gemini-cli-extensions/conductor --base main
 - `conductor/` (including `linear.md`, tracks, this file)
 - `scripts/linear_cli.py`
 - `scripts/linear_create_issue.py`
+- `gcp-dev/` and the `gcp-dev` entry in `.claude-plugin/marketplace.json`
 
 ### May appear in the upstream diff
 
