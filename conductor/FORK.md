@@ -12,7 +12,7 @@ This repository is two things at once:
 | **Plugin product** | `skills/`, `rules/`, `README.md`, `plugin.json` | PRs to **upstream** |
 | **Your SDD workspace** | `conductor/` (this file, `linear.md`, tracks, plans) and root `scripts/linear_*.py` | Commit on **origin** (`swainjo/conductor`) only |
 | **Fork-only plugins** | `gcp-dev/` and its `.claude-plugin/marketplace.json` entry | Commit on **origin** only |
-| **Fork-only skills (for now)** | `skills/stay-on-current-branch/`, `skills/skill-gap-review/` | Commit on **origin** only until decided otherwise |
+| **Fork-only skills (for now)** | `skills/stay-on-current-branch/`, `skills/skill-gap-review/`, `skills/goldfish-review/` | Commit on **origin** only until decided otherwise |
 
 Linear-first is on because `conductor/linear.md` exists. Tracks use the Linear
 issue as the spec. Local track folders are thin pointers (`metadata.json` +
@@ -62,8 +62,9 @@ gh pr create --repo gemini-cli-extensions/conductor --base main
 - `scripts/linear_cli.py`
 - `scripts/linear_create_issue.py`
 - `gcp-dev/` and the `gcp-dev` entry in `.claude-plugin/marketplace.json`
-- `skills/stay-on-current-branch/` and `skills/skill-gap-review/` (fork-only
-  for now; they live in `skills/` but are not offered upstream yet)
+- `skills/stay-on-current-branch/`, `skills/skill-gap-review/` and
+  `skills/goldfish-review/` (fork-only for now; they live in `skills/` but are
+  not offered upstream yet)
 
 ### May appear in the upstream diff
 
@@ -76,7 +77,7 @@ upstream.
 ```bash
 git fetch upstream
 git diff --name-only upstream/main...HEAD \
-  | grep -E '^(conductor/|gcp-dev/|scripts/linear_|\.claude-plugin/marketplace\.json|skills/(stay-on-current-branch|skill-gap-review)/)'
+  | grep -E '^(conductor/|gcp-dev/|scripts/linear_|\.claude-plugin/marketplace\.json|skills/(stay-on-current-branch|skill-gap-review|goldfish-review)/)'
 ```
 
 If that prints anything, drop those commits or recut the branch from

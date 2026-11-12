@@ -12,6 +12,13 @@
 6.  **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use
     `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
 
+## Spec Review (goldfish pass)
+
+During `conductor-new-track`, after drafting the spec (here: the Linear issue
+description) and before asking for Approve/Revise, run the **goldfish-review**
+skill. Required for MVP/Feature tracks, offered for others. The user may say
+"skip goldfish".
+
 ## Task Workflow
 
 All tasks follow a strict lifecycle:
