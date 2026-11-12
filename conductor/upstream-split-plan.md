@@ -75,7 +75,7 @@ Add the attribution lines to any rewritten message (e.g. 4c5041c's prefix).
 
 ```bash
 git diff --name-only upstream/main...HEAD \
-  | grep -E '^(conductor/|gcp-dev/|scripts/linear_|\.claude-plugin/marketplace\.json|skills/(stay-on-current-branch|skill-gap-review)/)' \
+  | grep -E '^(conductor/|gcp-dev/|scripts/linear_|\.claude-plugin/marketplace\.json|skills/(stay-on-current-branch|skill-gap-review|goldfish-review)/)' \
   && echo LEAK || echo clean
 git diff upstream/main...HEAD -- VERSION .cursor-plugin/plugin.json   # expect empty
 python -m pytest skills/                                              # setup asset tests
